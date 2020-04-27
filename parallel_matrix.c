@@ -25,12 +25,18 @@ int main()
     int m,n,p,q;
     int i, j, k, sum;
    
-    /* 
+     
     //Manual user input
     printf("Enter the rows and column of the first matrix: ");
     scanf("%d%d", &m, &n);
     printf("Enter the rows and column of the second matrix: ");
     scanf("%d%d", &p, &q);
+    if(n!=p)
+    {
+        printf("Product is not possible");
+        return 1;
+    }
+    
     int first[m][n], second[p][q], product[m][q];
     printf("Enter elements of the first matrix: ");
     for(i = 0; i < m; i++)
@@ -42,10 +48,11 @@ int main()
         for(j = 0; j < n; j++)
             scanf("%d", &second[m][n]);
     
-    */
+    
 
 
     //test values
+    /*
     m = n = p = q = 3;
     
     int first[][3] = {
@@ -59,19 +66,18 @@ int main()
         4,4,1,
         1,1,2
     };
-    /* product is
-    14	13	11	
-    38	34	29	
-    62	55	47
+    // product is
+    // 14	13	11	
+    // 38	34	29	
+    // 62	55	47
     */
+
     int product[m][q];
 
-    if(n!=p)
-    {
-        printf("Product is not possible");
-        return 1;
-    }
+   
     
+    // The since each element product doesn't depend upon a the previous iteration, the iterations
+    // are equally distributed among the processors
     #pragma omp parallel for private(i,j,k,sum) shared(first,second,product)
     for(i = 0; i < m; i++)
     {
